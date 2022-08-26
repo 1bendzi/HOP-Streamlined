@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By 
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait 
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
@@ -9,6 +10,122 @@ from datetime import date, datetime
 import logging
 import os
 import time
+
+def login_as_member(driver, login_name, password):
+    try:
+        home_link = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, '//*[@id="staticBannerMenu"]/div[2]/div[2]/a')))
+        home_link.click()
+        
+        login_button_header = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="staticBannerMenu"]/div[2]/div[3]/a')))
+        login_button_header.click()
+
+        login_username_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="inpLogName"]')))
+        login_username_field.send_keys(f"{login_name}")
+        next_button = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[2]/div[2]/main/form/div[3]/input')))
+        next_button.click()
+
+        password_character_one = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[2]/div[2]/main/form/div[2]/div[1]/label')))
+        password_character_two = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[2]/div[2]/main/form/div[2]/div[2]/label')))
+        password_character_three = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[2]/div[2]/main/form/div[2]/div[3]/label')))
+
+        pin_num1 = ""
+        for character in password_character_one.text:
+            if character.isdigit():
+                pin_num1 += character
+        
+        pass_num2 = ""
+        for character in password_character_two.text:
+            if character.isdigit():
+                pass_num2 += character
+
+        pass_num3 = ""
+        for character in password_character_three.text:
+            if character.isdigit():
+                pass_num3 += character
+        
+        password_into_list = list(password)
+        password_char_list = []
+        password_char_list.extend((pin_num1, pass_num2, pass_num3))
+
+        list_of_password_chars = []
+        for n in range(3):
+            which_one = password_char_list[n]
+            list_of_password_chars.append(password_into_list[int(which_one) - 1])
+
+        password_character_one_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="inpPassword1"]')))
+        password_character_one_field.send_keys(list_of_password_chars[0])
+
+        password_character_two_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="inpPassword2"]')))
+        password_character_two_field.send_keys(list_of_password_chars[1])
+
+        password_character_three_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="inpPassword3"]')))
+        password_character_three_field.send_keys(list_of_password_chars[2])
+
+
+        pin_first_number = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[2]/div[2]/main/form/div[3]/div[1]/label')))
+        pin_second_number = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[2]/div[2]/main/form/div[3]/div[2]/label')))
+        pin_third_number = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/div[2]/div[2]/main/form/div[3]/div[3]/label')))
+
+
+        pin_num1 = ""
+        for character in pin_first_number.text:
+            if character.isdigit():
+                pin_num1 += character
+        
+        pin_num2 = ""
+        for character in pin_second_number.text:
+            if character.isdigit():
+                pin_num2 += character
+
+        pin_num3 = ""
+        for character in pin_third_number.text:
+            if character.isdigit():
+                pin_num3 += character
+        
+        pin = [1, 2, 3, 4, 5, 6]
+        pin_char_list = []
+        pin_char_list.extend((pin_num1, pin_num2, pin_num3))
+
+        list_of_pin_chars = []
+        for n in range(3):
+            which_one = pin_char_list[n]
+            list_of_pin_chars.append(pin[int(which_one) - 1])
+
+
+        pin_first_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="inpPIN1"]')))
+        pin_first_field.send_keys(list_of_pin_chars[0])
+
+        pin_second_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="inpPIN2"]')))
+        pin_second_field.send_keys(list_of_pin_chars[1])
+
+        pin_third_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="inpPIN3"]')))
+        pin_third_field.send_keys(list_of_pin_chars[2])
+
+        time.sleep(2)
+        driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+        time.sleep(2)
+
+        login_button = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="bAction"]')))
+        login_button.click()
+
+        time.sleep(2)
+        driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+        time.sleep(2)
+
+        proceed_button = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="btnProceed"]')))
+        proceed_button.click()
+    except:
+        driver.quit()
+
+def log_off (driver):
+    try:
+        home_link = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, '//*[@id="staticBannerMenu"]/div[2]/div[2]/a')))
+        home_link.click()
+         
+        log_off_button = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '/html/body/div/nav[1]/div/div[3]/div[2]/div[2]/div[4]/a')))
+        log_off_button.click()
+    except:
+        driver.quit()
 
 
 def accept_cookies(driver):
@@ -340,7 +457,6 @@ def scrape_demo():
     logging.getLogger('WDM').setLevel(logging.NOTSET)
     os.environ['WDM_LOG'] = "false"
 
-    # print("\n\033[1mScript has been started!\033[0m\n")
     filename = "HOP Streamlined\Generated evidence\HOP_Corvidae_Evidence.txt"
     os.makedirs(os.path.dirname(filename), exist_ok=True)
 
@@ -523,8 +639,6 @@ def scrape_demo():
 
 
     evidence_file.close()
-    # print('-' * 120)
-    # print("\n\033[1mEvidence file was successfully generated!\033[0m\n")
     driver.quit()
 
 def scrape_scheme (url, scheme_name):
