@@ -637,6 +637,13 @@ def scrape_demo():
     evidence_file.write(f"*Terms & Conditions WORDING: *\n")
     save_text_to_evidence_by_xpath(driver, evidence_file, '//*[@id="tncPage"]')
 
+    evidence_file.write(f"*Terms & Conditions WORDING inside accordion headers: *\n")
+    open_terms(driver)
+    headers_wording = driver.find_elements(By.CLASS_NAME, 'ui-accordion-content')
+    for header_wording in headers_wording:
+        evidence_file.write(header_wording.get_attribute('innerText'))
+
+    evidence_file.write('\n')
 
     evidence_file.close()
     driver.quit()
@@ -824,6 +831,14 @@ def scrape_scheme (url, scheme_name):
     open_terms(driver)
     evidence_file.write(f"*Terms & Conditions WORDING: *\n")
     save_text_to_evidence_by_xpath(driver, evidence_file, '//*[@id="tncPage"]')
+
+    evidence_file.write(f"*Terms & Conditions WORDING inside accordion headers: *\n")
+    open_terms(driver)
+    headers_wording = driver.find_elements(By.CLASS_NAME, 'ui-accordion-content')
+    for header_wording in headers_wording:
+        evidence_file.write(header_wording.get_attribute('innerText'))
+
+    evidence_file.write('\n')
 
     evidence_file.close()
     driver.quit()
