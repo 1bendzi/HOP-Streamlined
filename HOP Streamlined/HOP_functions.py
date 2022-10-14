@@ -438,6 +438,8 @@ def save_text_to_evidence_by_xpath(driver, evidence_file, path):
         evidence_file.write(element_on_the_page.text + "\n")
 
     evidence_file.write("\n")
+    evidence_file.write('-' * 120)
+    evidence_file.write('\n')
 
 def save_text_to_evidence_by_class(driver, evidence_file, class_name):
     elements_on_the_page = driver.find_elements(By.CLASS_NAME, class_name)
@@ -445,6 +447,8 @@ def save_text_to_evidence_by_class(driver, evidence_file, class_name):
         evidence_file.write(element_on_the_page.text + "\n")
 
     evidence_file.write("\n")
+    evidence_file.write('-' * 120)
+    evidence_file.write('\n')
 
 def save_text_to_evidence_by_id(driver, evidence_file, id_name):
     elements_on_the_page = driver.find_elements(By.ID, id_name)
@@ -452,22 +456,24 @@ def save_text_to_evidence_by_id(driver, evidence_file, id_name):
         evidence_file.write(element_on_the_page.text + "\n")
 
     evidence_file.write("\n")
+    evidence_file.write('-' * 120)
+    evidence_file.write('\n')
 
 def scrape_demo():
     logging.getLogger('WDM').setLevel(logging.NOTSET)
     os.environ['WDM_LOG'] = "false"
 
-    filename = "HOP Streamlined\Generated evidence\HOP_Corvidae_Evidence.txt"
+    filename = "HOP-Streamlined\Generated evidence\HOP_Corvidae_Evidence.txt"
     os.makedirs(os.path.dirname(filename), exist_ok=True)
 
-    evidence_file = open("HOP Streamlined\Generated evidence\HOP_Corvidae_Evidence.txt","w")
+    evidence_file = open("HOP-Streamlined\Generated evidence\HOP_Corvidae_Evidence.txt","w")
     evidence_file.close()
-    evidence_file = open("HOP Streamlined\Generated evidence\HOP_Corvidae_Evidence.txt","a", encoding="utf-8")
+    evidence_file = open("HOP-Streamlined\Generated evidence\HOP_Corvidae_Evidence.txt","a", encoding="utf-8")
 
-    now = datetime.now()
-    today = str(date.today())
-    current_time = now.strftime("%H:%M:%S")
-    evidence_file.write(f"{today}\n{current_time}\n")
+    # now = datetime.now()
+    # today = str(date.today())
+    # current_time = now.strftime("%H:%M:%S")
+    # evidence_file.write(f"{today}\n{current_time}\n")
     evidence_file.write('-' * 120)
     evidence_file.write('\n')
 
@@ -652,17 +658,17 @@ def scrape_scheme (url, scheme_name):
     logging.getLogger('WDM').setLevel(logging.NOTSET)
     os.environ['WDM_LOG'] = "false"
 
-    filename = "HOP Streamlined\Generated evidence\HOP_{scheme_name}_Evidence.txt"
+    filename = "HOP-Streamlined\Generated evidence\HOP_{scheme_name}_Evidence.txt"
     os.makedirs(os.path.dirname(filename), exist_ok=True)
 
-    evidence_file = open(f"HOP Streamlined\Generated evidence\HOP_{scheme_name}_Evidence.txt","w")
+    evidence_file = open(f"HOP-Streamlined\Generated evidence\HOP_{scheme_name}_Evidence.txt","w")
     evidence_file.close()
-    evidence_file = open(f"HOP Streamlined\Generated evidence\HOP_{scheme_name}_Evidence.txt","a", encoding="utf-8")
+    evidence_file = open(f"HOP-Streamlined\Generated evidence\HOP_{scheme_name}_Evidence.txt","a", encoding="utf-8")
 
-    now = datetime.now()
-    today = str(date.today())
-    current_time = now.strftime("%H:%M:%S")
-    evidence_file.write(f"{today}\n{current_time}\n")
+    # now = datetime.now()
+    # today = str(date.today())
+    # current_time = now.strftime("%H:%M:%S")
+    # evidence_file.write(f"{today}\n{current_time}\n")
     evidence_file.write('-' * 120)
     evidence_file.write('\n')
 
@@ -842,3 +848,11 @@ def scrape_scheme (url, scheme_name):
 
     evidence_file.close()
     driver.quit()
+
+
+def open_url(options, driver, url):
+    options.add_experimental_option('excludeSwitches', ['enable-logging'])
+    driver.get(f"{url}")
+    driver.maximize_window()
+    accept_cookies(driver)
+    return_to_home(driver) 
