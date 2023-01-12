@@ -470,10 +470,10 @@ def scrape_demo():
     evidence_file.close()
     evidence_file = open("HOP-Streamlined\Generated evidence\HOP_Corvidae_Evidence.txt","a", encoding="utf-8")
 
-    # now = datetime.now()
-    # today = str(date.today())
-    # current_time = now.strftime("%H:%M:%S")
-    # evidence_file.write(f"{today}\n{current_time}\n")
+    now = datetime.now()
+    today = str(date.today())
+    current_time = now.strftime("%H:%M:%S")
+    evidence_file.write(f"{today}\n{current_time}\n")
     evidence_file.write('-' * 120)
     evidence_file.write('\n')
 
@@ -665,10 +665,10 @@ def scrape_scheme (url, scheme_name):
     evidence_file.close()
     evidence_file = open(f"HOP-Streamlined\Generated evidence\HOP_{scheme_name}_Evidence.txt","a", encoding="utf-8")
 
-    # now = datetime.now()
-    # today = str(date.today())
-    # current_time = now.strftime("%H:%M:%S")
-    # evidence_file.write(f"{today}\n{current_time}\n")
+    now = datetime.now()
+    today = str(date.today())
+    current_time = now.strftime("%H:%M:%S")
+    evidence_file.write(f"{today}\n{current_time}\n")
     evidence_file.write('-' * 120)
     evidence_file.write('\n')
 

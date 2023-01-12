@@ -39,6 +39,7 @@ with open("HOP-Streamlined\Generated Evidence\HOP_Corvidae_Evidence.txt", encodi
 # here evidence file that will be generated from this script is prepared with date and time
 
 filename = "HOP-Streamlined\Demo vs Scheme - evidence\HOP_{scheme_name}_compared_to_demo.txt"
+
 os.makedirs(os.path.dirname(filename), exist_ok=True)
 
 evidence_file_diff = open(f"HOP-Streamlined\Demo vs Scheme - evidence\HOP_{scheme_name}_compared_to_demo.txt","w")
